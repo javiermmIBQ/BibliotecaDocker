@@ -8,12 +8,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import utils.ApplicationProperties;
+
 public class LibroDAO {
 	
-	private String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	private String DB_URL = "jdbc:mysql://localhost/biblioteca";
-	private String DB_USER = "bibliotecario";
-	private String DB_PASS = "bibliotecario";
 	private Connection conn = null;
 	private Statement stm = null;
 	PreparedStatement ps = null;
@@ -22,9 +20,11 @@ public class LibroDAO {
 	public LibroDAO() throws RuntimeException {
 		super();
 		// TODO Auto-generated constructor stub
+		 ApplicationProperties properties = new ApplicationProperties("db.properties");
 		 try {
-	            Class.forName(JDBC_DRIVER);
-	            conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+			 	Class.forName(properties.readProperty("JDBC_DRIVER"));
+	            conn = DriverManager.getConnection(properties.readProperty("DB_URL"),
+	            		properties.readProperty("DB_USER"), properties.readProperty("DB_PASS"));
 	     } catch (ClassNotFoundException e) {
 	            throw new RuntimeException("ERROR: failed to load MySQL JDBC driver.",e);
 	     } catch (SQLException e) {

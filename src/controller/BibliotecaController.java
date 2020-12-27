@@ -18,7 +18,7 @@ import model.LibroDAO;
 /**
  * Servlet implementation class BibliotecaController
  */
-@WebServlet(urlPatterns ={"","/insertar","/borrar"})
+@WebServlet(urlPatterns ={"","/insertar","/borrar","/modificar"})
 public class BibliotecaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -81,6 +81,32 @@ public class BibliotecaController extends HttpServlet {
 								
 			}
 			despachador = request.getServletContext().getRequestDispatcher("/");
+		} else if (request.getServletPath().equals("/modificar")) {
+			if (request.getParameter("titulo") == null) {
+				try {
+					LibroDAO libroDAO = new LibroDAO();
+					CategoriaDAO categoriaDAO = new CategoriaDAO();
+					ArrayList<Categoria> categorias = new ArrayList<Categoria>(categoriaDAO.getCategorias());
+					Libro libro = libroDAO.getLibro(Integer.parseInt(request.getParameter("isbn")));
+					
+					request.setAttribute("libro", libro);
+					request.setAttribute("categorias", categorias);
+				} catch (RuntimeException e) {
+					// TODO Auto-generated catch block
+					request.setAttribute("error",e.getMessage());
+				}
+				
+				despachador = request.getServletContext().getRequestDispatcher("/modificar.jsp");
+			} else {
+				LibroDAO libroDAO = new LibroDAO();
+				CategoriaDAO categoriaDAO = new CategoriaDAO();
+				Libro libro = new Libro(Integer.parseInt(request.getParameter("isbn"))
+						,request.getParameter("titulo"),request.getParameter("autor"),
+						categoriaDAO.getCategoria(Integer.parseInt(request.getParameter("categorias"))));
+				libroDAO.modificar(libro);
+				request.setAttribute("info","Libro "+ request.getParameter("isbn") +" modificado");
+				despachador = request.getServletContext().getRequestDispatcher("/");
+			}
 		}
 		
 		despachador.forward(request, response);

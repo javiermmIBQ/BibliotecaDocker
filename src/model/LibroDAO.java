@@ -70,6 +70,26 @@ public class LibroDAO {
 		}
 	}
 	
+	public void modificar(Libro libro) {
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("Biblioteca");
+		EntityManager em = factory.createEntityManager();
+		EntityTransaction tx = null;
+		try {
+			tx = em.getTransaction();
+			tx.begin();
+			em.merge(libro);
+			tx.commit();
+		} catch (PersistenceException e) {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			throw new RuntimeException("Error modificando libro" , e);
+		}
+		finally {
+			em.close();
+		}
+	}
+	
 	public Libro getLibro(int isbn) {
 		
 

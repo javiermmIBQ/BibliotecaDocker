@@ -31,6 +31,7 @@
           <th><b>Autor</b></th> 
           <th><b>Categoria</b></th> 
           <th><b>Borrar</b></th>
+          <th><b>Modificar</b></th>
          </tr>
          
          <% ArrayList<Libro> libros=(ArrayList<Libro>)request.getAttribute("libros"); 
@@ -42,6 +43,7 @@
 	                <td><%=l.getAutor()%></td> 
 	                <td><%=l.getCategoria().getNombre()%></td>
 	                <td><a href="borrar?isbn=<%=l.getIsbn()%>">Borrar</a></td> 
+	                <td><a href="modificar?isbn=<%=l.getIsbn()%>">Modificar</a></td> 
 	            </tr> 
 	            
 	         <%}
@@ -69,7 +71,7 @@
 	         }%>
 		</select>
 	  
-	    <input type="submit" value="Submit">
+	    <input type="submit" value="Añadir">
 	  </form>
 	</div>
 

@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.Libro" %>
+<%@ page import="model.Categoria" %>
 
 <!DOCTYPE html>
 <html>
@@ -22,6 +23,7 @@
           <th><b>ISBN</b></th> 
           <th><b>Título</b></th> 
           <th><b>Autor</b></th> 
+          <th><b>Categoria</b></th> 
          </tr>
          
          <% ArrayList<Libro> libros=(ArrayList<Libro>)request.getAttribute("libros"); 
@@ -31,6 +33,7 @@
 	                <td><%=l.getIsbn()%></td> 
 	                <td><%=l.getTitulo()%></td> 
 	                <td><%=l.getAutor()%></td> 
+	                <td><%=l.getCategoria().getNombre()%></td>
 	            </tr> 
 	            
 	         <%}
@@ -47,6 +50,16 @@
 	
 	    <label for="autor">Autor</label>
 	    <input type="text" id="autor" name="autor" placeholder="Autor..">
+	    
+	    <label for="categoria">Categoria</label>
+	    <select name="categorias" id="categorias">
+	    <% ArrayList<Categoria> categorias=(ArrayList<Categoria>)request.getAttribute("categorias"); 
+	    	if (categorias != null){	
+	         for(Categoria c:categorias){%>
+		 		 <option value="<%=c.getId()%>"><%=c.getNombre()%></option>
+		  		<%}
+	         }%>
+		</select>
 	  
 	    <input type="submit" value="Submit">
 	  </form>

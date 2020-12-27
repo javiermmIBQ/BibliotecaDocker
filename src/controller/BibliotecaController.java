@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Categoria;
+import model.CategoriaDAO;
 import model.Libro;
 import model.LibroDAO;
 
@@ -38,8 +40,11 @@ public class BibliotecaController extends HttpServlet {
 		if (request.getServletPath().equals("")) {
 			try {
 				LibroDAO libroDAO = new LibroDAO();
+				CategoriaDAO categoriaDAO = new CategoriaDAO();
 				ArrayList<Libro> libros = new ArrayList<Libro>(libroDAO.getLibros());
+				ArrayList<Categoria> categorias = new ArrayList<Categoria>(categoriaDAO.getCategorias());
 				request.setAttribute("libros", libros);
+				request.setAttribute("categorias", categorias);
 			} catch (RuntimeException e) {
 				// TODO Auto-generated catch block
 				request.setAttribute("error",e.getMessage());
@@ -48,8 +53,12 @@ public class BibliotecaController extends HttpServlet {
 						
 		} else if (request.getServletPath().equals("/insertar")) {
 			try {
+				CategoriaDAO categoriaDAO = new CategoriaDAO();
 				LibroDAO libroDAO = new LibroDAO();
-				Libro libro = new Libro(Integer.parseInt(request.getParameter("isbn")),request.getParameter("titulo"),request.getParameter("autor"));
+				
+				Categoria categoria = categoriaDAO.getCategoria(Integer.parseInt(request.getParameter("categorias")));
+				Libro libro = new Libro(Integer.parseInt(request.getParameter("isbn"))
+						,request.getParameter("titulo"),request.getParameter("autor"),categoria);
 				libroDAO.insertar(libro);
 			} catch (NumberFormatException e) {
 				// TODO Auto-generated catch block

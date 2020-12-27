@@ -10,7 +10,6 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
-import org.eclipse.persistence.exceptions.DatabaseException;
 
 
 public class LibroDAO {
@@ -51,5 +50,40 @@ public class LibroDAO {
 		}
 	}
 	
+	public void borrar(Libro libro) {
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("Biblioteca");
+		EntityManager em = factory.createEntityManager();
+		EntityTransaction tx = null;
+		try {
+			tx = em.getTransaction();
+			tx.begin();
+			em.remove(em.merge(libro));
+			tx.commit();
+		} catch (PersistenceException e) {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			throw new RuntimeException("Error borrando libro" , e);
+		}
+		finally {
+			em.close();
+		}
+	}
+	
+	public Libro getLibro(int isbn) {
+		
+
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("Biblioteca");
+		EntityManager em = factory.createEntityManager();
+		TypedQuery<Libro> q = em.createQuery("select l from Libro l where l.isbn = ?1",Libro.class);
+		q.setParameter(1, isbn);
+		try {
+			return (Libro)q.getSingleResult();
+		} finally {
+			em.close();
+		}
+		
+	}
+
 	
 }

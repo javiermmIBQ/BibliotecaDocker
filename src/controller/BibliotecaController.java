@@ -18,7 +18,7 @@ import model.LibroDAO;
 /**
  * Servlet implementation class BibliotecaController
  */
-@WebServlet(urlPatterns ={"","/insertar"})
+@WebServlet(urlPatterns ={"","/insertar","/borrar"})
 public class BibliotecaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -60,12 +60,25 @@ public class BibliotecaController extends HttpServlet {
 				Libro libro = new Libro(Integer.parseInt(request.getParameter("isbn"))
 						,request.getParameter("titulo"),request.getParameter("autor"),categoria);
 				libroDAO.insertar(libro);
+				request.setAttribute("info","Libro "+ libro +" insertado");
 			} catch (NumberFormatException e) {
 				// TODO Auto-generated catch block
 				request.setAttribute("error",e.getMessage());
 			} catch (RuntimeException e) {
 				// TODO Auto-generated catch block
 				request.setAttribute("error",e.getMessage());
+			}
+			
+			despachador = request.getServletContext().getRequestDispatcher("/");
+			
+		}  else if (request.getServletPath().equals("/borrar")) {
+			try {
+				LibroDAO libroDAO = new LibroDAO();
+				libroDAO.borrar(libroDAO.getLibro(Integer.parseInt(request.getParameter("isbn"))));
+				request.setAttribute("info","Libro "+ request.getParameter("isbn") +" borrado");
+			} catch (RuntimeException e) {
+				request.setAttribute("error",e.getMessage());
+								
 			}
 			despachador = request.getServletContext().getRequestDispatcher("/");
 		}

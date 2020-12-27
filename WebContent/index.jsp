@@ -17,6 +17,12 @@
 	 		<p><%=error%></p>
 		<%	 
 	 }%>
+	 
+	 <% String info = (String)request.getAttribute("info");
+	 	if (info!=null){ %>
+	 		<p><%=info%></p>
+		<%	 
+	 }%>
 
 	<table> 
    		<tr> 
@@ -24,6 +30,7 @@
           <th><b>Título</b></th> 
           <th><b>Autor</b></th> 
           <th><b>Categoria</b></th> 
+          <th><b>Borrar</b></th>
          </tr>
          
          <% ArrayList<Libro> libros=(ArrayList<Libro>)request.getAttribute("libros"); 
@@ -34,6 +41,7 @@
 	                <td><%=l.getTitulo()%></td> 
 	                <td><%=l.getAutor()%></td> 
 	                <td><%=l.getCategoria().getNombre()%></td>
+	                <td><a href="borrar?isbn=<%=l.getIsbn()%>">Borrar</a></td> 
 	            </tr> 
 	            
 	         <%}

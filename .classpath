@@ -15,5 +15,14 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.datatools.connectivity.jdt.DRIVERLIBRARY/MySQL JDBC Driver"/>
+	<classpathentry kind="lib" path="C:/Users/eltxa/Downloads/eclipselink-3.0.0.v20201208-87e9d1437d/eclipselink/jlib/eclipselink.jar"/>
+	<classpathentry kind="lib" path="C:/Users/eltxa/Downloads/eclipselink-3.0.0.v20201208-87e9d1437d/eclipselink/jlib/jpa/jakarta.annotation-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/eltxa/Downloads/eclipselink-3.0.0.v20201208-87e9d1437d/eclipselink/jlib/jpa/jakarta.persistence-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/eltxa/Downloads/eclipselink-3.0.0.v20201208-87e9d1437d/eclipselink/jlib/jpa/org.eclipse.persistence.jpa.modelgen.processor.jar"/>
+	<classpathentry kind="lib" path="C:/Users/eltxa/Downloads/eclipselink-3.0.0.v20201208-87e9d1437d/eclipselink/jlib/jpa/org.eclipse.persistence.jpa.modelgen.processor-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/eltxa/Downloads/eclipselink-3.0.0.v20201208-87e9d1437d/eclipselink/jlib/jpa/org.eclipse.persistence.jpars.jar"/>
+	<classpathentry kind="lib" path="C:/Users/eltxa/Downloads/eclipselink-3.0.0.v20201208-87e9d1437d/eclipselink/jlib/jpa/org.eclipse.persistence.jpars-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/eltxa/Downloads/eclipselink-3.0.0.v20201208-87e9d1437d/eclipselink/jlib/jpa/org.eclipse.persistence.jpars-sources.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

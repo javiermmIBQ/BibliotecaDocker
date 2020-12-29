@@ -9,16 +9,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.Categoria;
 import model.CategoriaDAO;
 import model.Libro;
 import model.LibroDAO;
+import model.Usuario;
+import model.UsuarioDAO;
 
 /**
  * Servlet implementation class BibliotecaController
  */
-@WebServlet(urlPatterns ={"","/insertar","/borrar","/modificar"})
+@WebServlet(urlPatterns ={"","/insertar","/borrar","/modificar","/registro","/login","/logout"})
 public class BibliotecaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -107,6 +110,48 @@ public class BibliotecaController extends HttpServlet {
 				request.setAttribute("info","Libro "+ request.getParameter("isbn") +" modificado");
 				despachador = request.getServletContext().getRequestDispatcher("/");
 			}
+		} else if (request.getServletPath().equals("/registro")) {
+			if (request.getParameter("usuario") == null) {
+				despachador = request.getServletContext().getRequestDispatcher("/registro.jsp");
+			} else {
+				try {
+					UsuarioDAO usuarioDAO = new UsuarioDAO();
+					Usuario usuario = new Usuario(request.getParameter("usuario"),request.getParameter("password"));
+					String respuesta = usuarioDAO.register(usuario);
+					if ((respuesta == "exito")) {
+						request.setAttribute("info","Usuario añadido");
+						HttpSession session = request.getSession();
+						session.setAttribute("user", usuario);
+					} else {
+						request.setAttribute("info","respuesta");
+					}
+					despachador = request.getServletContext().getRequestDispatcher("/");
+				} catch (RuntimeException e) {
+					// TODO Auto-generated catch block
+					request.setAttribute("error",e.getMessage());
+				}
+			}
+		}  else if (request.getServletPath().equals("/login")) {
+			if (request.getParameter("usuario") == null) {
+				despachador = request.getServletContext().getRequestDispatcher("/login.jsp");
+			} else {
+				try {
+				    UsuarioDAO usuarioDAO = new UsuarioDAO();
+					Usuario usuario = new Usuario(request.getParameter("usuario"),request.getParameter("password"));
+					if (usuarioDAO.login(usuario)=="exito") {
+						HttpSession session = request.getSession();
+						session.setAttribute("user", usuario);
+					}
+				} catch (RuntimeException e) {
+					// TODO Auto-generated catch block
+					request.setAttribute("error",e.getMessage());
+				}
+				despachador = request.getServletContext().getRequestDispatcher("/");
+			}
+		} else if (request.getServletPath().equals("/logout")) {
+			HttpSession session = request.getSession();
+			session.setAttribute("user", null);
+			despachador = request.getServletContext().getRequestDispatcher("/");
 		}
 		
 		despachador.forward(request, response);

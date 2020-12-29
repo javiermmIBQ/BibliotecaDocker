@@ -3,6 +3,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.Libro" %>
 <%@ page import="model.Categoria" %>
+<%@ page import="model.Usuario" %>
 
 <!DOCTYPE html>
 <html>
@@ -23,6 +24,28 @@
 	 		<p><%=info%></p>
 		<%	 
 	 }%>
+  
+	<% 
+	if(session.getAttribute("user") == null){ %>
+		<div>
+			<ul>
+				<li><a href="login">login</a></li>
+				<li><a href="registro">Registro</a></li>
+			</ul>
+		</div>
+	<% } else {  
+		Usuario usuario = (Usuario)session.getAttribute("user");
+		%>
+		<div>Usuario: <% out.print((String)usuario.getUsuario()); %></div>
+		<div>
+			<ul>
+				<li><a href="logout">logout</a></li>
+			</ul>
+		</div>
+		<% } %>
+			
+	
+	
 
 	<table> 
    		<tr> 

@@ -22,9 +22,6 @@ public class Usuario implements Serializable {
 
 	private String password;
 
-	@ManyToMany
-	private Set<Libro> libros = new HashSet<Libro>();
-	
 	public Usuario() {
 	}
 
@@ -52,13 +49,9 @@ public class Usuario implements Serializable {
 		this.password = password;
 	}
 	
-	public Set<Libro> getLibros() {
-		return libros;
-	}
-
 	@Override
 	public String toString() {
-		return "Usuario [usuario=" + usuario + ", password=" + password + ", libros=" + libros + "]";
+		return "Usuario [usuario=" + usuario + ", password=" + password + "]";
 	}
 	
 	

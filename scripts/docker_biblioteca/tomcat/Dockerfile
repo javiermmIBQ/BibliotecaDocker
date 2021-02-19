@@ -9,7 +9,7 @@ cd .. &&\
 cd src &&\
 mv META-INF/* ../WebContent/WEB-INF/classes/ &&\
 cd .. &&\
-sed -i 's/.*javax.persistence.jdbc.url.*/<property name="javax.persistence.jdbc.url" value="jdbc:mysql:\/\/mysql8:3306\/biblioteca"\/>/' WebContent/WEB-INF/classes/META-INF/persistence.xml &&\
+sed -i 's/.*javax.persistence.jdbc.url.*/<property name="javax.persistence.jdbc.url" value="jdbc:mysql:\/\/mysql_c:3306\/biblioteca"\/>/' WebContent/WEB-INF/classes/META-INF/persistence.xml &&\
 cd WebContent &&\
 jar -cvf /usr/local/tomcat/webapps/Biblioteca.war * &&\
-rm -rf /BibliotecaJPA 
+rm -rf /BibliotecaJPA

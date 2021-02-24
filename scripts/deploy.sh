@@ -1,3 +1,6 @@
+#Paramos y eliminamos contenedores de despliegues anteriores
+docker stop mysql_c tomcat_c nginx_c
+
 # Trabajamos en un fichero temporal
 cd /tmp
 

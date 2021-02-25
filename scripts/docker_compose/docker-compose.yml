@@ -17,9 +17,9 @@ services:
         - mysql
 
   nginx:
-    container_name: nginx_c  
-      build:
-        context: ./nginx
-        depends_on:
-          - mysql
-          - tomcat
+    container_name: nginx_c
+    build:
+      context: ./nginx
+      depends_on:
+        - mysql
+        - tomcat

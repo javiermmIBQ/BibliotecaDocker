@@ -1,4 +1,3 @@
-version: "1.0"
 services:
 
   mysql:
@@ -13,13 +12,17 @@ services:
     build:
       context: ../../
       dockerfile: scripts/docker_compose/tomcat/Dockerfile
-      depends_on:
-        - mysql
+    depends_on:
+      - mysql
 
   nginx:
     container_name: nginx_c
     build:
-      context: ./nginx
-      depends_on:
-        - mysql
-        - tomcat
+      context: ../../
+      dockerfile: scripts/docker_compose/nginx/Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - mysql
+      - tomcat

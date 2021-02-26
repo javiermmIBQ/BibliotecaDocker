@@ -2,6 +2,8 @@ services:
 
   mysql:
     container_name: mysql_c
+#    volumes:
+#      - mysql_vol:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: profesor
     build:
@@ -26,3 +28,6 @@ services:
     depends_on:
       - mysql
       - tomcat
+
+#volumes:
+#  mysql_vol:

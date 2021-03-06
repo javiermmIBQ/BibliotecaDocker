@@ -8,13 +8,13 @@ services:
       MYSQL_ROOT_PASSWORD: profesor
     build:
       context: ./mysql
-    image: mysql_img
+    image: localhost:5000/mysql_img
 
   tomcat:
     container_name: tomcat_c
     build:
       context: ./tomcat
-    image: tomcat_img
+    image: localhost:5000/tomcat_img
     depends_on:
       - mysql
 
@@ -22,7 +22,7 @@ services:
     container_name: nginx_c
     build:
       context: ./nginx
-    image: mysql_img
+    image: localhost:5000/nginx_img
     ports:
       - "80:80"
       - "443:443"

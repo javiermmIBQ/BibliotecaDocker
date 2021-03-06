@@ -48,6 +48,7 @@ public class BibliotecaController extends HttpServlet {
 				ArrayList<Categoria> categorias = new ArrayList<Categoria>(categoriaDAO.getCategorias());
 				request.setAttribute("libros", libros);
 				request.setAttribute("categorias", categorias);
+				
 			} catch (RuntimeException e) {
 				// TODO Auto-generated catch block
 				request.setAttribute("error",e.getMessage());

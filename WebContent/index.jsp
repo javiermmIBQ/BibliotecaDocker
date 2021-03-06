@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+
 	 <% String error = (String)request.getAttribute("error");
 	 	if (error!=null){ %>
 	 		<p><%=error%></p>
